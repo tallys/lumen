@@ -1,6 +1,8 @@
 Lumen
 =====
 
+https://tallys.github.io/lumen/sassdoc/
+
 Lumen is a
 practical color-theory toolkit
 for people who code.
