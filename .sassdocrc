@@ -1,5 +1,0 @@
-dest: gh-pages/sassdoc
-
-display:
-  access:
-    - public
