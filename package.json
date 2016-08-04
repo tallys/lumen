@@ -1,0 +1,42 @@
+{
+  "name": "sass-lumen",
+  "version": "0.0.1",
+  "description": "a practical sass color-theory toolkit",
+  "main": "sass/_lumen.scss",
+  "devDependencies": {
+    "chalk": "^1.1.1",
+    "gulp": "^3.9.0",
+    "gulp-sass-lint": "^1.1.0",
+    "gulp-util": "^3.0.7",
+    "mocha": "^2.3.4",
+    "sass-true": "^2.0.3",
+    "sassdoc": "^2.1.16"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha",
+    "release": "gulp sasslint && gulp sassdoc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tallys/lumen.git"
+  },
+  "keywords": [
+    "color theory",
+    "sass",
+    "toolkit"
+  ],
+  "eyeglass": {
+    "needs": "^0.8.2",
+    "sassDir": "sass",
+    "exports": false
+  },
+  "author": "Natalya Shelburne <natalyathree@gmail.com>",
+  "contributors": [
+    "Miriam Suzanne <miriam@oddbird.net>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tallys/lumen/issues"
+  },
+  "homepage": "https://github.com/tallys/lumen#readme"
+}

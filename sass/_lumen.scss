@@ -1,0 +1,19 @@
+// Lumen
+// =====
+// - harmonize($color1, $color2)
+// - neutralize($color)
+// - tint($color, $amount)
+// - shade($color, $amount)
+// - get-contrast($color)
+
+
+// Harmonize
+// ---------
+/// Test documentation.
+/// @param $test - test parameter
+@function harmonize(
+  $color1,
+  $color2
+) {
+  @return mix($color1, $color2);
+}
