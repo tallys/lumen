@@ -1,0 +1,30 @@
+// Tints & Shades
+// --------------
+
+// Shade
+// -----
+/// Mix a color with black.
+/// @group manipulate
+/// @param {Color} $color - The initial color to be adjusted.
+/// @param {Percentage} $amount - The amount of black to mix in, from `0%-100%`.
+/// @return {Color} - your new, darker color!
+@function shade(
+  $color,
+  $amount
+) {
+  @return mix(#000, $color, $amount);
+}
+
+// Tint
+// -----
+/// Mix a color with white.
+/// @group manipulate
+/// @param {Color} $color - The initial color to be adjusted.
+/// @param {Percentage} $amount - The amount of white to mix in, from `0%-100%`.
+/// @return {Color} - your new, lighter color!
+@function tint(
+  $color,
+  $amount
+) {
+  @return mix(#fff, $color, $amount);
+}

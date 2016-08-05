@@ -1,0 +1,97 @@
+// Harmonies
+// =========
+
+
+// Harmony Weight
+// --------------
+/// Calculate an appropriate mix-weighting between two colors,
+/// based on the relative brightness of the colors.
+/// @access private
+/// @group internal
+/// @param {Color} $color -
+///   The base color value, which will be returned
+///   with a subtle harmony color mixed in.
+/// @param {Color} $harmony -
+///   A harmony color to mix into your base color.
+/// @param {Percentage} $median -
+///   The median amount of your harmony color
+///   to mix into your base color,
+///   given the same relative brightness.
+/// @param {Percentage} $margin -
+///   The margin of weight-adjustment
+///   for mixing colors with different relative brihtness.
+///   A margin of `8%` with a median of `16%`
+///   will return mixes weighted between `8%` and `24%` (`16% ± 8%`).
+/// @return {Percentage} -
+///   A percent-value, weighted above or below the given median,
+///   based on the relative visual brightness of the two colors given.
+///   Resulting weights are limited to the `0%-50%` range.
+@function _harmony-weight(
+  $color,
+  $harmony,
+  $median,
+  $margin
+) {
+  // Get the relative brightness of each color
+  $white-bright: brightness(#fff);
+  $color-bright: brightness($color);
+  $harmony-bright: brightness($harmony);
+
+  // Determine the appropriate mix based on comparative brightness
+  $diff: ($harmony-bright - $color-bright) / $white-bright;
+  $mix: $median + round($diff * $margin);
+
+  // Cut off mix values outside the 0%-50% range
+  $mix: min(50%, $mix);
+  $mix: max(0%, $mix);
+
+  // Return the calculated mix weight
+  @return $mix;
+}
+
+
+// Harmonize
+// ---------
+/// Mix a subtle harmony color into your base color,
+/// weighted by the relative brightness of the two colors.
+/// @group manipulate
+/// @param {Color} $color -
+///   The base color value, which will be returned
+///   with a subtle harmony color mixed in.
+/// @param {Color | Function} $harmony ['complement'] -
+///   A harmony color to mix into your base color,
+///   or the name of a function like `complement` or `invert`
+///   that can manipulate the base color and return another color value.
+/// @param {Percentage} $median [16%] -
+///   The median amount of your harmony color
+///   to mix into your base color,
+///   given the same relative brightness.
+/// @param {Percentage} $margin [8%] -
+///   The margin of weight-adjustment
+///   for mixing colors with different relative brihtness.
+///   A margin of `8%` with a median of `16%`
+///   will return mixes weighted between `8%` and `24%` (`16% ± 8%`).
+@function harmonize(
+  $color,
+  $harmony: 'complement',
+  $median: 16%,
+  $margin: 8%
+) {
+  @if type-of($harmony) != 'color' {
+    // If $harmony is not a color, try running it as a function
+    @if function-exists($harmony) {
+      $harmony: call($harmony, $color);
+    }
+
+    // Error if $harmony is still not a valid color
+    @if type-of($harmony) != 'color' {
+      @error '$harmony `#{$harmony}` [#{type-of($harmony)}] is not a valid color for harmonizing.';
+    }
+  }
+
+  // Get the appropriate weighting
+  $mix: _harmony-weight($color, $harmony, $median, $margin);
+
+  // Mix a subtle harmony into your color!
+  @return mix($harmony, $color, $mix);
+}

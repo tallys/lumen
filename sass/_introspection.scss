@@ -1,0 +1,25 @@
+// Introspection
+// =============
+
+// Brightness
+// ----------
+/// Determine the brightnss of a color,
+/// adjusted for the visual brightnesses
+/// of different hues.
+/// @group inspect
+/// @param {Color} $color -
+///   Any color value to be analysed
+/// @return {Number} -
+///   The relative visual brightness of the color,
+///   from 0 (black) through 225959 (white).
+@function brightness(
+  $color
+) {
+  // Multiply the primary hues by their respective visual weights
+  $red: red($color) * 299;
+  $green: green($color) * 587;
+  $blue: blue($color) * 114;
+
+  // Collate the resulting total weight
+  @return round($red + $green + $blue / 1000);
+}

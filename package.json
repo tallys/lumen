@@ -9,12 +9,12 @@
     "gulp-sass-lint": "^1.1.0",
     "gulp-util": "^3.0.7",
     "mocha": "^2.3.4",
-    "sass-true": "^2.0.3",
+    "sass-true": "^2.1.3",
     "sassdoc": "^2.1.16"
   },
   "scripts": {
     "test": "node_modules/.bin/mocha",
-    "release": "gulp sasslint && gulp sassdoc"
+    "release": "gulp sasslint && npm test && gulp sassdoc"
   },
   "repository": {
     "type": "git",

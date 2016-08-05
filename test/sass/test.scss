@@ -1,0 +1,120 @@
+// Lumen Tests
+// ===========
+
+
+@import '../../sass/lumen';
+@import '../../node_modules/sass-true/sass/true';
+
+
+// Brightness
+// ----------
+@include test-module('brightness [function]') {
+  @include test('Black has no brightness') {
+    @include assert-equal(
+      brightness(#000),
+      0
+      );
+  }
+
+  @include test('Yellow is brighter than blue') {
+    @include assert-true(
+      brightness(blue) < brightness(yellow)
+      );
+  }
+
+  @include test('White has full brightness') {
+    @include assert-equal(
+      brightness(#fff),
+      225959
+      );
+  }
+}
+
+
+// Harmony Weight
+// --------------
+@include test-module('_harmony-weight [function]') {
+  @include test('Equal-brightness colors return median weight') {
+    @include assert-equal(
+      _harmony-weight(blue, blue, 16%, 8%),
+      16%
+      );
+  }
+
+  @include test('Light-on-dark mixes are weighted heavily') {
+    @include assert-equal(
+      _harmony-weight(blue, yellow, 16%, 8%),
+      24%
+      );
+  }
+
+  @include test('Dark-on-light mixes are weighted lightly') {
+    @include assert-equal(
+      _harmony-weight(yellow, blue, 16%, 8%),
+      8%
+      );
+  }
+
+  @include test('Weights are limited to a minimum of 0%') {
+    @include assert-equal(
+      _harmony-weight(yellow, blue, 5%, 10%),
+      0%
+      );
+  }
+
+  @include test('Weights are limited to a maximum of 50%') {
+    @include assert-equal(
+      _harmony-weight(blue, yellow, 75%, 10%),
+      50%
+      );
+  }
+}
+
+
+// Harmonize
+// ---------
+@include test-module('harmonize [function]') {
+  @include test('Return a color with weighted harmony mixed in') {
+    @include assert-equal(
+      harmonize(blue, yellow, 20%, 10%),
+      mix(yellow, blue, 30%)
+      );
+
+    @include assert-equal(
+      harmonize(yellow, blue, 20%, 10%),
+      mix(blue, yellow, 10%)
+      );
+  }
+
+  @include test('Allow functions to generate harmony colors') {
+    @include assert-equal(
+      harmonize(#339, 'invert'),
+      harmonize(#339, invert(#339))
+      );
+  }
+}
+
+
+// Tint [function]
+// ---------------
+@include test-module('tint [function]') {
+  @include test('Adjust the tint of a color') {
+    @include assert-equal(
+      tint(red, 25%),
+      mix(#fff, red, 25%),
+      'Returns a color mixed with white at a given weight.');
+  }
+}
+
+
+// Shade [function]
+// ----------------
+@include test-module('shade [function]') {
+  @include test('Adjust the shade of a color') {
+    @include assert-equal(
+      shade(blue, 25%),
+      mix(#000, blue, 25%),
+      'Returns a color mixed with black at a given weight.');
+  }
+}
+
