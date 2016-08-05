@@ -19,7 +19,7 @@ the testing, linting, and documentation dependencies.
 
 `gulp sasslint` to lint changes in the Sass.
 
-`gulp test` to run tests, once we have some.
+`gulp test` to run the tests with True.
 
 
 Documentation
